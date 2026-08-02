@@ -228,7 +228,7 @@ class HeaderManager {
     isActivePath(href, currentPath) {
         if (!href) return false;
         try {
-            const u = new URL(href%2c%20window.location.origin.html);
+            const u = new URL(href, window.location.href);
             const path = u.pathname || '/';
             if (path === '/' && currentPath === 'index.html') return true;
             if (path !== '/' && currentPath.startsWith(path)) return true;
