@@ -1,0 +1,500 @@
+/* Contact Page Custom Styles */
+
+/* Override home.css hero form rules — contact page uses .form-group inside white cards */
+.contact-page-form .form-group > label,
+.contact-page-form .contact-field-label {
+    display: block;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: #052651;
+    margin-bottom: 0.5rem;
+    line-height: 1.35;
+}
+
+.contact-page-form .form-group .label-hint {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #6b7280;
+    margin-top: -0.125rem;
+    margin-bottom: 0.5rem;
+}
+
+.contact-page-form .form-group input:not([type="checkbox"]):not([type="hidden"]),
+.contact-page-form .form-group textarea,
+.contact-page-form .form-group select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    border: 2px solid #e5e7eb !important;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    color: #111827 !important;
+    font-size: 0.9375rem;
+    box-sizing: border-box;
+}
+
+.contact-page-form .form-group input::placeholder,
+.contact-page-form .form-group textarea::placeholder {
+    color: #9ca3af !important;
+}
+
+.contact-page-form .form-group select {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E") !important;
+    background-position: right 0.75rem center !important;
+    background-repeat: no-repeat !important;
+    background-size: 1.5em 1.5em !important;
+    padding-right: 2.75rem;
+}
+
+.contact-page-form .form-section-title {
+    font-size: 0.8125rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #052651;
+    margin-top: 0.5rem;
+    margin-bottom: 0.25rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+html,
+body {
+    overflow-x: hidden;
+}
+
+/* Uses .container-max from layouts.app (1200px) */
+
+/* Float Animation for Hero Blobs (optional; hero now matches site pages) */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    33% {
+        transform: translateY(-30px) scale(1.05);
+    }
+    66% {
+        transform: translateY(15px) scale(0.95);
+    }
+}
+
+.animate-float {
+    animation: float 20s ease-in-out infinite;
+}
+
+/* Form Input Focus Effects */
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none !important;
+}
+
+/* Custom Checkbox Styling */
+input[type="checkbox"]:checked {
+    background-color: #fbbf24;
+    border-color: #fbbf24;
+}
+
+/* Success Message Animation */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.success-animate {
+    animation: slideDown 0.5s ease-out;
+}
+
+/* Error Message Styling */
+.error-message {
+    display: none;
+}
+
+.error-message.show {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+}
+
+/* Form Input Error State */
+input.error,
+textarea.error,
+select.error {
+    border-color: #ef4444 !important;
+    background-color: #fef2f2;
+}
+
+.contact-page-form input.error,
+.contact-page-form textarea.error,
+.contact-page-form select.error {
+    background-color: #fff5f5 !important;
+    color: #111827 !important;
+}
+
+/* Loading Spinner for Submit Button */
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(26, 58, 82, 0.3);
+    border-top-color: #1a3a52;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+/* FAQ Accordion Animation */
+.faq-item.active .faq-question svg {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 500px;
+    padding-bottom: 1.25rem;
+}
+
+/* Card Hover Glow Effect */
+.contact-card-glow {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.contact-card-glow::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.contact-card-glow:hover::before {
+    opacity: 1;
+}
+
+/* Pulse Animation for Online Indicator */
+@keyframes pulse-dot {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.2);
+    }
+}
+
+.animate-pulse {
+    animation: pulse-dot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Gradient Border Animation */
+@keyframes gradient-rotate {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.gradient-border {
+    background: linear-gradient(90deg, #fbbf24, #f59e0b, #fbbf24);
+    background-size: 200% 200%;
+    animation: gradient-rotate 3s ease infinite;
+}
+
+/* Social Media Icon Hover Effects */
+.social-icon {
+    position: relative;
+    overflow: hidden;
+}
+
+.social-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease, height 0.4s ease;
+}
+
+.social-icon:hover::after {
+    width: 100%;
+    height: 100%;
+}
+
+/* Form Field Icon Animation */
+.form-icon {
+    transition: all 0.3s ease;
+}
+
+input:focus + .form-icon,
+textarea:focus + .form-icon,
+select:focus + .form-icon {
+    color: #fbbf24;
+    transform: scale(1.1);
+}
+
+/* Map Container Styling */
+.map-container {
+    position: relative;
+    border-radius: 1.5rem;
+    overflow: hidden;
+}
+
+.map-container iframe {
+    filter: grayscale(0.3);
+    transition: filter 0.3s ease;
+}
+
+.map-container:hover iframe {
+    filter: grayscale(0);
+}
+
+/* Ripple Effect on Buttons */
+.ripple-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(0);
+    animation: ripple-animation 0.6s ease-out;
+    pointer-events: none;
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* AOS Animation Overrides */
+[data-aos="fade-up"] {
+    transform: translateY(50px);
+    opacity: 0;
+}
+
+[data-aos="fade-up"].aos-animate {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+[data-aos="fade-right"] {
+    transform: translateX(-50px);
+    opacity: 0;
+}
+
+[data-aos="fade-right"].aos-animate {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+[data-aos="fade-left"] {
+    transform: translateX(50px);
+    opacity: 0;
+}
+
+[data-aos="fade-left"].aos-animate {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+/* Glassmorphism Effect */
+.glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Tooltip Styling */
+.tooltip {
+    position: relative;
+}
+
+.tooltip::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px);
+    padding: 0.5rem 1rem;
+    background: #1a3a52;
+    color: white;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.tooltip:hover::before {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Skeleton Loading Animation */
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Parallax Effect Helper */
+.parallax {
+    transition: transform 0.15s ease-out;
+}
+
+/* Card Tilt Effect */
+.tilt-card {
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+}
+
+.tilt-card:hover {
+    transform: perspective(1000px) rotateX(2deg) rotateY(2deg);
+}
+
+/* Gradient Text Animation */
+@keyframes gradient-text {
+    0%, 100% {
+        background-position: 0% center;
+    }
+    50% {
+        background-position: 100% center;
+    }
+}
+
+.gradient-text-animate {
+    background: linear-gradient(90deg, #fbbf24, #f59e0b, #fbbf24);
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-text 3s ease infinite;
+}
+
+/* Form Validation Success State */
+input.success,
+textarea.success,
+select.success {
+    border-color: #10b981 !important;
+    background-color: #f0fdf4;
+}
+
+.contact-page-form input.success,
+.contact-page-form textarea.success,
+.contact-page-form select.success {
+    background-color: #f0fdf4 !important;
+    color: #111827 !important;
+}
+
+/* Custom Select Arrow Styling */
+select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+    background-position: right 0.75rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .container-max {
+        padding: 0 1rem;
+    }
+
+    .faq-answer {
+        font-size: 0.9rem;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .no-print {
+        display: none;
+    }
+
+    body {
+        background: white;
+    }
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Focus Visible for Accessibility */
+*:focus-visible {
+    outline: 2px solid #fbbf24;
+    outline-offset: 2px;
+}
+
+/* Custom scrollbar — tablet/phone only */
+@media (max-width: 1024px) {
+    ::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #1a3a52, #2d5a7b);
+        border-radius: 6px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #0f2537, #1a3a52);
+    }
+}

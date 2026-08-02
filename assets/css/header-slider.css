@@ -1,0 +1,22 @@
+/* ==========================================
+   BOLD FULL-WIDTH SLIDER
+   ========================================== */
+
+/* Active slide state */
+.hero-slide.active {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Outline Text Effect */
+.outline-text {
+    color: transparent;
+    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.3);
+    letter-spacing: 0.05em;
+}
+
+/* Active dot indicator (expands to pill) */
+.header-slider-dot.active {
+    width: 2.5rem !important;
+    border-radius: 0.75rem !important;
+}
