@@ -1,8 +1,8 @@
 /* Home Page Styles - Route Map Theme */
 
 :root {
-    --home-ink: #052651;
-    --home-ink-soft: #052651;
+    --home-ink: #0a1628;
+    --home-ink-soft: #0a1628;
     --home-gold: #ebc831;
     --home-sky: #4cc9f0;
     --home-cream: #f8f4e7;
@@ -41,7 +41,7 @@ body {
 }
 
 .home-hero::before {
-    background: linear-gradient(135deg, rgba(5, 38, 81, 0.65) 0%, rgba(5, 38, 81, 0.45) 100%);
+    background: linear-gradient(135deg, rgba(10, 22, 40, 0.65) 0%, rgba(10, 22, 40, 0.45) 100%);
     opacity: 1;
 }
 

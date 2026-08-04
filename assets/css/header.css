@@ -1,5 +1,5 @@
 /* ------------------------------------------------------------------
-   Site header — theme yellow (#ebc831) + primary navy (#052651), mobile drawer
+   Site header — theme yellow (#ebc831) + primary navy (#0a1628), mobile drawer
    ------------------------------------------------------------------ */
 
 /* Reserve space for sticky header */
@@ -14,15 +14,15 @@ body {
 }
 
 :root {
-    --header-primary: #052651;
-    --header-primary-soft: rgba(5, 38, 81, 0.12);
+    --header-primary: #0a1628;
+    --header-primary-soft: rgba(10, 22, 40, 0.12);
     --header-accent: #ebc831;
     --header-accent-dark: #c9a41a;
     --header-accent-soft: rgba(235, 200, 49, 0.35);
     --header-top-bg: linear-gradient(135deg, #f0d24a 0%, var(--header-accent) 48%, #f5e078 100%);
     --header-bar-bg: linear-gradient(135deg, #f5dc5c 0%, var(--header-accent) 40%, #f0d24a 100%);
     --header-nav-text: var(--header-primary);
-    --header-border: rgba(5, 38, 81, 0.18);
+    --header-border: rgba(10, 22, 40, 0.18);
     --header-z: 10050;
     --header-height: 110px;
     --site-header-offset: 110px;
@@ -50,12 +50,12 @@ body {
     right: 0;
     z-index: var(--header-z);
     background: var(--header-accent);
-    box-shadow: 0 2px 16px rgba(5, 38, 81, 0.15);
+    box-shadow: 0 2px 16px rgba(10, 22, 40, 0.15);
     transition: box-shadow 0.2s ease;
 }
 
 .site-header.site-header--scrolled {
-    box-shadow: 0 8px 28px rgba(5, 38, 81, 0.22);
+    box-shadow: 0 8px 28px rgba(10, 22, 40, 0.22);
 }
 
 /* Top strip */
@@ -103,7 +103,7 @@ body {
     letter-spacing: 0.04em;
     text-decoration: none;
     border: 2px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 14px rgba(5, 38, 81, 0.25);
+    box-shadow: 0 4px 14px rgba(10, 22, 40, 0.25);
     transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease;
 }
 
@@ -131,17 +131,17 @@ body {
     0%,
     100% {
         box-shadow:
-            0 4px 14px rgba(5, 38, 81, 0.28),
+            0 4px 14px rgba(10, 22, 40, 0.28),
             0 0 0 0 rgba(235, 200, 49, 0);
     }
     45% {
         box-shadow:
-            0 5px 18px rgba(5, 38, 81, 0.32),
+            0 5px 18px rgba(10, 22, 40, 0.32),
             0 0 22px 3px rgba(235, 200, 49, 0.42);
     }
     55% {
         box-shadow:
-            0 5px 18px rgba(5, 38, 81, 0.32),
+            0 5px 18px rgba(10, 22, 40, 0.32),
             0 0 26px 5px rgba(235, 200, 49, 0.38);
     }
 }
@@ -338,7 +338,7 @@ body {
     color: var(--header-primary);
     border-color: var(--header-border);
     background: rgba(255, 255, 255, 0.45);
-    box-shadow: inset 0 0 0 1px rgba(5, 38, 81, 0.08);
+    box-shadow: inset 0 0 0 1px rgba(10, 22, 40, 0.08);
 }
 
 .site-header__cta {
@@ -352,14 +352,14 @@ body {
     letter-spacing: 0.04em;
     text-decoration: none;
     border: 2px solid rgba(255, 255, 255, 0.25);
-    box-shadow: 0 4px 14px rgba(5, 38, 81, 0.25);
+    box-shadow: 0 4px 14px rgba(10, 22, 40, 0.25);
     transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
 
 .site-header__cta:hover {
     background: #063a7a;
     transform: translateY(-1px);
-    box-shadow: 0 6px 18px rgba(5, 38, 81, 0.32);
+    box-shadow: 0 6px 18px rgba(10, 22, 40, 0.32);
 }
 
 /* Hamburger — keep above drawer stack; large touch target */
@@ -432,7 +432,7 @@ body {
     overflow: hidden;
     pointer-events: none;
     visibility: hidden;
-    background: linear-gradient(180deg, #052651 0%, #063a5c 100%);
+    background: linear-gradient(180deg, #0a1628 0%, #071220 100%);
     border-bottom: 1px solid rgba(235, 200, 49, 0.35);
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
     transition: max-height 0.32s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.24s ease, visibility 0.24s ease;
@@ -523,7 +523,7 @@ body.site-nav-scroll-locked {
         background: var(--header-primary);
         color: #fff;
         border: 2px solid rgba(255, 255, 255, 0.2);
-        box-shadow: 0 4px 14px rgba(5, 38, 81, 0.25);
+        box-shadow: 0 4px 14px rgba(10, 22, 40, 0.25);
         animation: site-header-call-gleam 2.75s ease-in-out infinite;
     }
 
@@ -570,7 +570,7 @@ body.site-nav-scroll-locked {
         border-color: rgba(255, 255, 255, 0.25);
         transform: translateY(-1px);
         box-shadow:
-            0 6px 22px rgba(5, 38, 81, 0.35),
+            0 6px 22px rgba(10, 22, 40, 0.35),
             0 0 28px rgba(235, 200, 49, 0.35);
         animation: site-header-call-gleam 2.75s ease-in-out infinite;
     }

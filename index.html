@@ -44,12 +44,12 @@
 
         /* Primary Colors */
         :root {
-            --primary: #052651;
+            --primary: #0a1628;
             --accent: #ebc831;
         }
 
-        .bg-primary { background-color: #052651; }
-        .text-primary { color: #052651; }
+        .bg-primary { background-color: #0a1628; }
+        .text-primary { color: #0a1628; }
         .text-accent { color: #ebc831; }
         .bg-accent { background-color: #ebc831; }
         .border-accent { border-color: #ebc831; }
@@ -85,7 +85,7 @@
             color: #ffffff;
             border-color: var(--primary);
             transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 10px 20px rgba(5, 38, 81, 0.2);
+            box-shadow: 0 10px 20px rgba(10, 22, 40, 0.2);
         }
 
         .btn-primary {
@@ -128,7 +128,7 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#052651',
+                        primary: '#0a1628',
                         accent: '#ebc831',
                     },
                     fontFamily: {
@@ -201,7 +201,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: radial-gradient(circle at center, rgba(5, 38, 81, 0.45) 0%, rgba(5, 38, 81, 0.8) 100%);
+        background: radial-gradient(circle at center, rgba(10, 22, 40, 0.45) 0%, rgba(10, 22, 40, 0.8) 100%);
         z-index: 1;
     }
 
@@ -310,7 +310,7 @@
     .hero-slider-section .swiper-button-prev:hover {
         background: #ebc831;
         border-color: #ebc831;
-        color: #052651;
+        color: #0a1628;
     }
 
     .hero-slider-section .swiper-pagination-bullet {
@@ -343,7 +343,7 @@
 
     .slide-btn-outline:hover {
         background-color: white;
-        color: #052651;
+        color: #0a1628;
         transform: translateY(-3px) scale(1.02);
     }
 
@@ -760,7 +760,7 @@
 <!-- Premium About Section -->
 <section id="about" class="about-section py-24 bg-[#f9f7f2] relative overflow-hidden">
     <!-- Traditional Dot Pattern Background & Decorative Shapes -->
-    <div class="absolute inset-0 opacity-[0.05] pointer-events-none" style="background-image: radial-gradient(#052651 1px, transparent 1px); background-size: 30px 30px;"></div>
+    <div class="absolute inset-0 opacity-[0.05] pointer-events-none" style="background-image: radial-gradient(#0a1628 1px, transparent 1px); background-size: 30px 30px;"></div>
     
     <div class="container-max relative z-10 px-4 sm:px-6 lg:px-8 mx-auto">
         <div class="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
@@ -1081,10 +1081,13 @@
                                 Pickup From
                             </label>
                             <div class="relative">
-                                <select name="pickup_location" id="pickup_location" required class="premium-select w-full h-16 bg-white border border-slate-200/80 rounded-2xl px-6 text-slate-900 font-bold text-sm outline-none appearance-none transition-all duration-500 focus:border-accent focus:shadow-lg focus:shadow-accent/5 hover:border-slate-300">
-                                    <!-- Dynamic -->
-                                </select>
-                                <i data-lucide="chevron-down" class="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none w-4 h-4"></i>
+                                <input type="text" name="pickup_location" id="pickup_location" required
+                                    autocomplete="off"
+                                    list="pickup-city-list"
+                                    placeholder="Type city or area..."
+                                    class="w-full h-16 bg-white border border-slate-200/80 rounded-2xl px-6 pr-12 text-slate-900 font-bold text-sm outline-none transition-all duration-500 focus:border-accent focus:shadow-lg focus:shadow-accent/5 hover:border-slate-300 placeholder:text-slate-300 placeholder:font-normal">
+                                <i data-lucide="map-pin" class="absolute right-5 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none w-4 h-4"></i>
+                                <datalist id="pickup-city-list"></datalist>
                             </div>
                         </div>
 
@@ -1095,10 +1098,13 @@
                                 Destination
                             </label>
                             <div class="relative">
-                                <select name="dropoff_location" id="dropoff_location" required class="premium-select w-full h-16 bg-white border border-slate-200/80 rounded-2xl px-6 text-slate-900 font-bold text-sm outline-none appearance-none transition-all duration-500 focus:border-accent focus:shadow-lg focus:shadow-accent/5 hover:border-slate-300">
-                                    <!-- Dynamic -->
-                                </select>
-                                <i data-lucide="chevron-down" class="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none w-4 h-4"></i>
+                                <input type="text" name="dropoff_location" id="dropoff_location" required
+                                    autocomplete="off"
+                                    list="dropoff-city-list"
+                                    placeholder="Type destination..."
+                                    class="w-full h-16 bg-white border border-slate-200/80 rounded-2xl px-6 pr-12 text-slate-900 font-bold text-sm outline-none transition-all duration-500 focus:border-accent focus:shadow-lg focus:shadow-accent/5 hover:border-slate-300 placeholder:text-slate-300 placeholder:font-normal">
+                                <i data-lucide="navigation" class="absolute right-5 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none w-4 h-4"></i>
+                                <datalist id="dropoff-city-list"></datalist>
                             </div>
                         </div>
 
@@ -1443,11 +1449,9 @@
             return state.tripType === 'round' ? 'Round trip' : 'One way';
         }
 
-        function selectOptionLabel(selectEl) {
-            if (!selectEl || selectEl.selectedIndex < 0) return '—';
-            const opt = selectEl.options[selectEl.selectedIndex];
-            if (!opt || !opt.value) return '—';
-            return opt.text.trim();
+        function selectOptionLabel(inputEl) {
+            if (!inputEl) return '—';
+            return (inputEl.value || '').trim() || '—';
         }
 
         function buildPremiumBookingWaUrl(formEl) {
@@ -1455,8 +1459,8 @@
             const name = (fd.get('customer_name') || '').toString().trim();
             const mob = (fd.get('mobile_number') || '').toString().trim();
             const car = selectOptionLabel(formEl.querySelector('[name="car_type"]'));
-            const pickup = selectOptionLabel(formEl.querySelector('[name="pickup_location"]'));
-            const drop = selectOptionLabel(formEl.querySelector('[name="dropoff_location"]'));
+            const pickup = (fd.get('pickup_location') || '').toString().trim() || '—';
+            const drop = (fd.get('dropoff_location') || '').toString().trim() || '—';
             const pDate = (fd.get('pickup_date') || '').toString();
             const rDate = (fd.get('return_date') || '').toString();
             const service = state.serviceType === 'airport' ? 'Airport transfer' : 'Outstation';
@@ -1564,25 +1568,49 @@
         }
 
         function populateDropdowns() {
-            let pickupOptions = '<option value="">Current Location</option>';
-            let dropOptions = '<option value="">Destination</option>';
+            const pickupDatalist = document.getElementById('pickup-city-list');
+            const dropoffDatalist = document.getElementById('dropoff-city-list');
+            if (!pickupDatalist || !dropoffDatalist) return;
+
+            let citySuggestions = [];
 
             if (state.serviceType === 'airport') {
                 if (state.tripType === 'pickup') {
-                    airports.forEach(a => pickupOptions += `<option value="${a.id}">${a.name}</option>`);
+                    airports.forEach(a => { citySuggestions.push({ label: a.name, datalist: 'pickup' }); });
+                    gujaratCities.forEach(c => { citySuggestions.push({ label: c, datalist: 'dropoff' }); });
                 } else {
-                    gujaratCities.forEach(c => pickupOptions += `<option value="${c.toLowerCase()}">${c}</option>`);
-                    airports.forEach(a => dropOptions += `<option value="${a.id}">${a.name}</option>`);
+                    gujaratCities.forEach(c => { citySuggestions.push({ label: c, datalist: 'pickup' }); });
+                    airports.forEach(a => { citySuggestions.push({ label: a.name, datalist: 'dropoff' }); });
                 }
             } else {
                 gujaratCities.forEach(c => {
-                    pickupOptions += `<option value="${c.toLowerCase()}">${c}</option>`;
-                    dropOptions += `<option value="${c.toLowerCase()}">${c}</option>`;
+                    citySuggestions.push({ label: c, datalist: 'both' });
                 });
             }
 
-            pickupLocation.innerHTML = pickupOptions;
-            dropoffLocation.innerHTML = dropOptions;
+            pickupDatalist.innerHTML = '';
+            dropoffDatalist.innerHTML = '';
+            citySuggestions.forEach(item => {
+                if (item.datalist === 'pickup' || item.datalist === 'both') {
+                    const opt = document.createElement('option'); opt.value = item.label;
+                    pickupDatalist.appendChild(opt);
+                }
+                if (item.datalist === 'dropoff' || item.datalist === 'both') {
+                    const opt = document.createElement('option'); opt.value = item.label;
+                    dropoffDatalist.appendChild(opt);
+                }
+            });
+
+            if (state.serviceType === 'airport' && state.tripType === 'pickup') {
+                pickupLocation.placeholder = 'Type airport name...';
+                dropoffLocation.placeholder = 'Type destination city...';
+            } else if (state.serviceType === 'airport' && state.tripType === 'drop') {
+                pickupLocation.placeholder = 'Type your city...';
+                dropoffLocation.placeholder = 'Type airport name...';
+            } else {
+                pickupLocation.placeholder = 'Type pickup city or area...';
+                dropoffLocation.placeholder = 'Type destination city...';
+            }
         }
 
         function renderTripTypes() {
@@ -1841,9 +1869,9 @@
                         <a href="https://wa.me/919909140334?text=Hi%2C%20I%20want%20to%20book%20a%20Toyota%20Etios%20taxi%20in%20Jamnagar%20with%20Shree%20Ram%20Tours%20and%20Travels%20Taxi%20Service."
                            target="_blank"
                            rel="noopener noreferrer"
-                           class="group inline-flex w-full max-w-full min-w-0 items-center justify-center gap-1.5 sm:gap-2 rounded-full border-2 border-[#052651] bg-[#052651] px-2.5 py-2 sm:w-auto sm:px-5 sm:py-2.5 text-white text-[9px] sm:text-[10px] md:text-xs font-black uppercase tracking-[0.12em] sm:tracking-widest shadow-lg shadow-[#052651]/15 transition-all duration-300 hover:bg-[#ebc831] hover:text-[#052651] hover:border-[#ebc831] sm:hover:-translate-y-0.5"
+                           class="group inline-flex w-full max-w-full min-w-0 items-center justify-center gap-1.5 sm:gap-2 rounded-full border-2 border-[#0a1628] bg-[#0a1628] px-2.5 py-2 sm:w-auto sm:px-5 sm:py-2.5 text-white text-[9px] sm:text-[10px] md:text-xs font-black uppercase tracking-[0.12em] sm:tracking-widest shadow-lg shadow-[#0a1628]/15 transition-all duration-300 hover:bg-[#ebc831] hover:text-[#0a1628] hover:border-[#ebc831] sm:hover:-translate-y-0.5"
                            aria-label="WhatsApp booking for Toyota Etios">
-                            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 shrink-0 text-white group-hover:text-[#052651]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 shrink-0 text-white group-hover:text-[#0a1628]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                             </svg>
                             <span class="whitespace-nowrap">WhatsApp</span>
@@ -1875,9 +1903,9 @@
                         <a href="https://wa.me/919909140334?text=Hi%2C%20I%20want%20to%20book%20a%20Swift%20Dzire%20taxi%20in%20Jamnagar%20with%20Shree%20Ram%20Tours%20and%20Travels%20Taxi%20Service."
                            target="_blank"
                            rel="noopener noreferrer"
-                           class="group inline-flex w-full max-w-full min-w-0 items-center justify-center gap-1.5 sm:gap-2 rounded-full border-2 border-[#052651] bg-[#052651] px-2.5 py-2 sm:w-auto sm:px-5 sm:py-2.5 text-white text-[9px] sm:text-[10px] md:text-xs font-black uppercase tracking-[0.12em] sm:tracking-widest shadow-lg shadow-[#052651]/15 transition-all duration-300 hover:bg-[#ebc831] hover:text-[#052651] hover:border-[#ebc831] sm:hover:-translate-y-0.5"
+                           class="group inline-flex w-full max-w-full min-w-0 items-center justify-center gap-1.5 sm:gap-2 rounded-full border-2 border-[#0a1628] bg-[#0a1628] px-2.5 py-2 sm:w-auto sm:px-5 sm:py-2.5 text-white text-[9px] sm:text-[10px] md:text-xs font-black uppercase tracking-[0.12em] sm:tracking-widest shadow-lg shadow-[#0a1628]/15 transition-all duration-300 hover:bg-[#ebc831] hover:text-[#0a1628] hover:border-[#ebc831] sm:hover:-translate-y-0.5"
                            aria-label="WhatsApp booking for Swift Dzire">
-                            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 shrink-0 text-white group-hover:text-[#052651]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 shrink-0 text-white group-hover:text-[#0a1628]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                             </svg>
                             <span class="whitespace-nowrap">WhatsApp</span>
@@ -1909,9 +1937,9 @@
                         <a href="https://wa.me/919909140334?text=Hi%2C%20I%20want%20to%20book%20a%20Suzuki%20Ertiga%20%28SUV%29%20taxi%20in%20Jamnagar%20with%20Shree%20Ram%20Tours%20and%20Travels%20Taxi%20Service."
                            target="_blank"
                            rel="noopener noreferrer"
-                           class="group inline-flex w-full max-w-full min-w-0 items-center justify-center gap-1.5 sm:gap-2 rounded-full border-2 border-[#052651] bg-[#052651] px-2.5 py-2 sm:w-auto sm:px-5 sm:py-2.5 text-white text-[9px] sm:text-[10px] md:text-xs font-black uppercase tracking-[0.12em] sm:tracking-widest shadow-lg shadow-[#052651]/15 transition-all duration-300 hover:bg-[#ebc831] hover:text-[#052651] hover:border-[#ebc831] sm:hover:-translate-y-0.5"
+                           class="group inline-flex w-full max-w-full min-w-0 items-center justify-center gap-1.5 sm:gap-2 rounded-full border-2 border-[#0a1628] bg-[#0a1628] px-2.5 py-2 sm:w-auto sm:px-5 sm:py-2.5 text-white text-[9px] sm:text-[10px] md:text-xs font-black uppercase tracking-[0.12em] sm:tracking-widest shadow-lg shadow-[#0a1628]/15 transition-all duration-300 hover:bg-[#ebc831] hover:text-[#0a1628] hover:border-[#ebc831] sm:hover:-translate-y-0.5"
                            aria-label="WhatsApp booking for Suzuki Ertiga">
-                            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 shrink-0 text-white group-hover:text-[#052651]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 shrink-0 text-white group-hover:text-[#0a1628]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                             </svg>
                             <span class="whitespace-nowrap">WhatsApp</span>
@@ -1943,9 +1971,9 @@
                         <a href="https://wa.me/919909140334?text=Hi%2C%20I%20want%20to%20book%20a%20Toyota%20Rumion%20%28SUV%29%20taxi%20in%20Jamnagar%20with%20Shree%20Ram%20Tours%20and%20Travels%20Taxi%20Service."
                            target="_blank"
                            rel="noopener noreferrer"
-                           class="group inline-flex w-full max-w-full min-w-0 items-center justify-center gap-1.5 sm:gap-2 rounded-full border-2 border-[#052651] bg-[#052651] px-2.5 py-2 sm:w-auto sm:px-5 sm:py-2.5 text-white text-[9px] sm:text-[10px] md:text-xs font-black uppercase tracking-[0.12em] sm:tracking-widest shadow-lg shadow-[#052651]/15 transition-all duration-300 hover:bg-[#ebc831] hover:text-[#052651] hover:border-[#ebc831] sm:hover:-translate-y-0.5"
+                           class="group inline-flex w-full max-w-full min-w-0 items-center justify-center gap-1.5 sm:gap-2 rounded-full border-2 border-[#0a1628] bg-[#0a1628] px-2.5 py-2 sm:w-auto sm:px-5 sm:py-2.5 text-white text-[9px] sm:text-[10px] md:text-xs font-black uppercase tracking-[0.12em] sm:tracking-widest shadow-lg shadow-[#0a1628]/15 transition-all duration-300 hover:bg-[#ebc831] hover:text-[#0a1628] hover:border-[#ebc831] sm:hover:-translate-y-0.5"
                            aria-label="WhatsApp booking for Toyota Rumion">
-                            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 shrink-0 text-white group-hover:text-[#052651]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 shrink-0 text-white group-hover:text-[#0a1628]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                             </svg>
                             <span class="whitespace-nowrap">WhatsApp</span>
@@ -1977,9 +2005,9 @@
                         <a href="https://wa.me/919909140334?text=Hi%2C%20I%20want%20to%20book%20a%20Kia%20Carens%20%28SUV%29%20taxi%20in%20Jamnagar%20with%20Shree%20Ram%20Tours%20and%20Travels%20Taxi%20Service."
                            target="_blank"
                            rel="noopener noreferrer"
-                           class="group inline-flex w-full max-w-full min-w-0 items-center justify-center gap-1.5 sm:gap-2 rounded-full border-2 border-[#052651] bg-[#052651] px-2.5 py-2 sm:w-auto sm:px-5 sm:py-2.5 text-white text-[9px] sm:text-[10px] md:text-xs font-black uppercase tracking-[0.12em] sm:tracking-widest shadow-lg shadow-[#052651]/15 transition-all duration-300 hover:bg-[#ebc831] hover:text-[#052651] hover:border-[#ebc831] sm:hover:-translate-y-0.5"
+                           class="group inline-flex w-full max-w-full min-w-0 items-center justify-center gap-1.5 sm:gap-2 rounded-full border-2 border-[#0a1628] bg-[#0a1628] px-2.5 py-2 sm:w-auto sm:px-5 sm:py-2.5 text-white text-[9px] sm:text-[10px] md:text-xs font-black uppercase tracking-[0.12em] sm:tracking-widest shadow-lg shadow-[#0a1628]/15 transition-all duration-300 hover:bg-[#ebc831] hover:text-[#0a1628] hover:border-[#ebc831] sm:hover:-translate-y-0.5"
                            aria-label="WhatsApp booking for Kia Carens">
-                            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 shrink-0 text-white group-hover:text-[#052651]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 shrink-0 text-white group-hover:text-[#0a1628]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                             </svg>
                             <span class="whitespace-nowrap">WhatsApp</span>
@@ -2011,9 +2039,9 @@
                         <a href="https://wa.me/919909140334?text=Hi%2C%20I%20want%20to%20book%20a%20Toyota%20Innova%20%28SUV%29%20taxi%20in%20Jamnagar%20with%20Shree%20Ram%20Tours%20and%20Travels%20Taxi%20Service."
                            target="_blank"
                            rel="noopener noreferrer"
-                           class="group inline-flex w-full max-w-full min-w-0 items-center justify-center gap-1.5 sm:gap-2 rounded-full border-2 border-[#052651] bg-[#052651] px-2.5 py-2 sm:w-auto sm:px-5 sm:py-2.5 text-white text-[9px] sm:text-[10px] md:text-xs font-black uppercase tracking-[0.12em] sm:tracking-widest shadow-lg shadow-[#052651]/15 transition-all duration-300 hover:bg-[#ebc831] hover:text-[#052651] hover:border-[#ebc831] sm:hover:-translate-y-0.5"
+                           class="group inline-flex w-full max-w-full min-w-0 items-center justify-center gap-1.5 sm:gap-2 rounded-full border-2 border-[#0a1628] bg-[#0a1628] px-2.5 py-2 sm:w-auto sm:px-5 sm:py-2.5 text-white text-[9px] sm:text-[10px] md:text-xs font-black uppercase tracking-[0.12em] sm:tracking-widest shadow-lg shadow-[#0a1628]/15 transition-all duration-300 hover:bg-[#ebc831] hover:text-[#0a1628] hover:border-[#ebc831] sm:hover:-translate-y-0.5"
                            aria-label="WhatsApp booking for Toyota Innova">
-                            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 shrink-0 text-white group-hover:text-[#052651]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 shrink-0 text-white group-hover:text-[#0a1628]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                             </svg>
                             <span class="whitespace-nowrap">WhatsApp</span>
@@ -2045,9 +2073,9 @@
                         <a href="https://wa.me/919909140334?text=Hi%2C%20I%20want%20to%20book%20a%20Toyota%20Innova%20Crysta%20%28SUV%29%20taxi%20in%20Jamnagar%20with%20Shree%20Ram%20Tours%20and%20Travels%20Taxi%20Service."
                            target="_blank"
                            rel="noopener noreferrer"
-                           class="group inline-flex w-full max-w-full min-w-0 items-center justify-center gap-1.5 sm:gap-2 rounded-full border-2 border-[#052651] bg-[#052651] px-2.5 py-2 sm:w-auto sm:px-5 sm:py-2.5 text-white text-[9px] sm:text-[10px] md:text-xs font-black uppercase tracking-[0.12em] sm:tracking-widest shadow-lg shadow-[#052651]/15 transition-all duration-300 hover:bg-[#ebc831] hover:text-[#052651] hover:border-[#ebc831] sm:hover:-translate-y-0.5"
+                           class="group inline-flex w-full max-w-full min-w-0 items-center justify-center gap-1.5 sm:gap-2 rounded-full border-2 border-[#0a1628] bg-[#0a1628] px-2.5 py-2 sm:w-auto sm:px-5 sm:py-2.5 text-white text-[9px] sm:text-[10px] md:text-xs font-black uppercase tracking-[0.12em] sm:tracking-widest shadow-lg shadow-[#0a1628]/15 transition-all duration-300 hover:bg-[#ebc831] hover:text-[#0a1628] hover:border-[#ebc831] sm:hover:-translate-y-0.5"
                            aria-label="WhatsApp booking for Innova Crysta">
-                            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 shrink-0 text-white group-hover:text-[#052651]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 shrink-0 text-white group-hover:text-[#0a1628]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                             </svg>
                             <span class="whitespace-nowrap">WhatsApp</span>
@@ -2070,7 +2098,7 @@
 <!-- Why Choose Us -->
 <section class="py-16 md:py-24 lg:py-32 bg-gray-50 relative overflow-hidden">
     <!-- Background Patterns -->
-    <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(#052651 1px, transparent 1px); background-size: 32px 32px;"></div>
+    <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(#0a1628 1px, transparent 1px); background-size: 32px 32px;"></div>
     
     <div class="container-max relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -2230,7 +2258,7 @@
                     <a href="https://wa.me/919909140334?text=Hi%2C%20I%20want%20a%20taxi%20package%20quote%20for%20DWARKA%20from%20Jamnagar%20with%20Shree%20Ram%20Tours%20and%20Travels%20Taxi%20Service.%20Places%20to%20cover%3A%20Dwarkadhish%20Temple%2C%20Gomti%20Ghat%2C%20Sudama%20Setu%2C%20Bet%20Dwarka%2C%20Rukmini%20Temple%2C%20Nageshwar%20Jyotirlinga%2C%20Shivrajpur%20Beach%2C%20Porbandar%20%28Kirti%20Mandir%2C%20Sudama%20Temple%29.%20Please%20share%20fare%2C%20car%20options%2C%20and%20suggested%20itinerary."
                        target="_blank"
                        rel="noopener noreferrer"
-                       class="group/wa inline-flex w-full max-w-full min-w-0 items-center justify-center gap-2 rounded-full border-2 border-[#052651] bg-[#052651] px-3 py-2.5 text-[11px] sm:text-xs font-black uppercase tracking-[0.12em] sm:tracking-widest mt-auto transition-all duration-300 text-white hover:bg-[#ebc831] hover:text-[#052651] hover:border-[#ebc831]">
+                       class="group/wa inline-flex w-full max-w-full min-w-0 items-center justify-center gap-2 rounded-full border-2 border-[#0a1628] bg-[#0a1628] px-3 py-2.5 text-[11px] sm:text-xs font-black uppercase tracking-[0.12em] sm:tracking-widest mt-auto transition-all duration-300 text-white hover:bg-[#ebc831] hover:text-[#0a1628] hover:border-[#ebc831]">
                         <svg class="w-4 h-4 sm:w-5 sm:h-5 shrink-0 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                         </svg>
@@ -2363,7 +2391,7 @@
                     <a href="https://wa.me/919909140334?text=Hi%2C%20I%20want%20a%20taxi%20package%20quote%20for%20KUTCH%20from%20Jamnagar%20with%20Shree%20Ram%20Tours%20and%20Travels%20Taxi%20Service.%20Places%20to%20cover%3A%20White%20Rann%2C%20Kalo%20Dungar%2C%20Dhordo%20area%2C%20Bhuj%20%28Aina%20Mahal%2C%20Prag%20Mahal%2C%20Swaminarayan%20Temple%29%2C%20Hodka%2FLudiya%2FKhavda%20villages%2C%20Mandvi%20%28Vijay%20Vilas%20Palace%2C%20Mandvi%20Beach%2C%20Shyamji%20Krishna%20Varma%20Memorial%29%2C%20optional%20Lakhpat%20Fort.%20Please%20share%20fare%2C%20car%20options%2C%20and%20suggested%20day-wise%20itinerary."
                        target="_blank"
                        rel="noopener noreferrer"
-                       class="group/wa inline-flex w-full max-w-full min-w-0 items-center justify-center gap-2 rounded-full border-2 border-[#052651] bg-[#052651] px-3 py-2.5 text-[11px] sm:text-xs font-black uppercase tracking-[0.12em] sm:tracking-widest mt-auto transition-all duration-300 text-white hover:bg-[#ebc831] hover:text-[#052651] hover:border-[#ebc831]">
+                       class="group/wa inline-flex w-full max-w-full min-w-0 items-center justify-center gap-2 rounded-full border-2 border-[#0a1628] bg-[#0a1628] px-3 py-2.5 text-[11px] sm:text-xs font-black uppercase tracking-[0.12em] sm:tracking-widest mt-auto transition-all duration-300 text-white hover:bg-[#ebc831] hover:text-[#0a1628] hover:border-[#ebc831]">
                         <svg class="w-4 h-4 sm:w-5 sm:h-5 shrink-0 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                         </svg>
@@ -2382,7 +2410,7 @@
             <a href="https://wa.me/919909140334?text=Hi%2C%20I%20want%20a%20custom%20Gujarat%20taxi%20tour%20plan%20from%20Jamnagar%20with%20Shree%20Ram%20Tours%20and%20Travels%20Taxi%20Service.%20Please%20help%20me%20combine%20places%20and%20share%20fare%20options."
                target="_blank"
                rel="noopener noreferrer"
-               class="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#052651] bg-[#052651] px-6 py-3 text-white text-xs sm:text-sm font-black uppercase tracking-widest shadow-lg shadow-[#052651]/15 transition-all duration-300 hover:bg-[#ebc831] hover:text-[#052651] hover:border-[#ebc831]">
+               class="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#0a1628] bg-[#0a1628] px-6 py-3 text-white text-xs sm:text-sm font-black uppercase tracking-widest shadow-lg shadow-[#0a1628]/15 transition-all duration-300 hover:bg-[#ebc831] hover:text-[#0a1628] hover:border-[#ebc831]">
                 <svg class="w-5 h-5 shrink-0 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                 </svg>
@@ -2395,7 +2423,7 @@
 <!-- Fleet Experience -->
 <section class="py-20 md:py-32 bg-gray-50 relative overflow-hidden border-t border-gray-100">
     <!-- Sophisticated background pattern -->
-    <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(#052651 1px, transparent 1px); background-size: 32px 32px;"></div>
+    <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(#0a1628 1px, transparent 1px); background-size: 32px 32px;"></div>
     
     <div class="container-max relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -2559,12 +2587,12 @@
                 <div class="flex flex-1 flex-col p-3 sm:p-6">
                     <h3 class="mb-1.5 sm:mb-2 text-base sm:text-xl font-bold text-primary transition-colors group-hover:text-accent">Dwarka</h3>
                     <p class="mb-3 sm:mb-6 flex-1 text-xs sm:text-sm leading-relaxed text-gray-600 line-clamp-4 sm:line-clamp-none">Dwarkadhish Temple, ghats, and coastal darshan routes — comfortable AC taxi for pilgrimage and family trips.</p>
-                    <div class="mt-auto flex items-center justify-between gap-1 border-t border-gray-50 pt-2.5 sm:pt-4 text-xs sm:text-sm font-bold text-[#052651] transition-colors group-hover:text-accent">
+                    <div class="mt-auto flex items-center justify-between gap-1 border-t border-gray-50 pt-2.5 sm:pt-4 text-xs sm:text-sm font-bold text-[#0a1628] transition-colors group-hover:text-accent">
                         <span class="inline-flex min-w-0 items-center gap-1 sm:gap-2">
                             <svg class="h-4 w-4 sm:h-5 sm:w-5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                             <span class="truncate sm:whitespace-normal">WhatsApp</span>
                         </span>
-                        <svg class="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 transform text-[#052651] transition-all group-hover:translate-x-1 group-hover:text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <svg class="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 transform text-[#0a1628] transition-all group-hover:translate-x-1 group-hover:text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                         </svg>
                     </div>
@@ -2587,12 +2615,12 @@
                 <div class="flex flex-1 flex-col p-3 sm:p-6">
                     <h3 class="mb-1.5 sm:mb-2 text-base sm:text-xl font-bold text-primary transition-colors group-hover:text-accent">Somnath</h3>
                     <p class="mb-3 sm:mb-6 flex-1 text-xs sm:text-sm leading-relaxed text-gray-600 line-clamp-4 sm:line-clamp-none">Somnath Jyotirlinga and seashore — reliable outstation cab from Jamnagar with experienced drivers.</p>
-                    <div class="mt-auto flex items-center justify-between gap-1 border-t border-gray-50 pt-2.5 sm:pt-4 text-xs sm:text-sm font-bold text-[#052651] transition-colors group-hover:text-accent">
+                    <div class="mt-auto flex items-center justify-between gap-1 border-t border-gray-50 pt-2.5 sm:pt-4 text-xs sm:text-sm font-bold text-[#0a1628] transition-colors group-hover:text-accent">
                         <span class="inline-flex min-w-0 items-center gap-1 sm:gap-2">
                             <svg class="h-4 w-4 sm:h-5 sm:w-5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                             <span class="truncate sm:whitespace-normal">WhatsApp</span>
                         </span>
-                        <svg class="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 transform text-[#052651] transition-all group-hover:translate-x-1 group-hover:text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <svg class="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 transform text-[#0a1628] transition-all group-hover:translate-x-1 group-hover:text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                         </svg>
                     </div>
@@ -2615,12 +2643,12 @@
                 <div class="flex flex-1 flex-col p-3 sm:p-6">
                     <h3 class="mb-1.5 sm:mb-2 text-base sm:text-xl font-bold text-primary transition-colors group-hover:text-accent">Sasan Gir</h3>
                     <p class="mb-3 sm:mb-6 flex-1 text-xs sm:text-sm leading-relaxed text-gray-600 line-clamp-4 sm:line-clamp-none">Gir National Park and lion safari circuits — plan your wildlife day trip in a clean, sanitized vehicle.</p>
-                    <div class="mt-auto flex items-center justify-between gap-1 border-t border-gray-50 pt-2.5 sm:pt-4 text-xs sm:text-sm font-bold text-[#052651] transition-colors group-hover:text-accent">
+                    <div class="mt-auto flex items-center justify-between gap-1 border-t border-gray-50 pt-2.5 sm:pt-4 text-xs sm:text-sm font-bold text-[#0a1628] transition-colors group-hover:text-accent">
                         <span class="inline-flex min-w-0 items-center gap-1 sm:gap-2">
                             <svg class="h-4 w-4 sm:h-5 sm:w-5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                             <span class="truncate sm:whitespace-normal">WhatsApp</span>
                         </span>
-                        <svg class="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 transform text-[#052651] transition-all group-hover:translate-x-1 group-hover:text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <svg class="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 transform text-[#0a1628] transition-all group-hover:translate-x-1 group-hover:text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                         </svg>
                     </div>
@@ -2643,12 +2671,12 @@
                 <div class="flex flex-1 flex-col p-3 sm:p-6">
                     <h3 class="mb-1.5 sm:mb-2 text-base sm:text-xl font-bold text-primary transition-colors group-hover:text-accent">Junagadh</h3>
                     <p class="mb-3 sm:mb-6 flex-1 text-xs sm:text-sm leading-relaxed text-gray-600 line-clamp-4 sm:line-clamp-none">Uparkot, Mahabat Maqbara, and hill temples — explore Junagadh history at your own pace by taxi.</p>
-                    <div class="mt-auto flex items-center justify-between gap-1 border-t border-gray-50 pt-2.5 sm:pt-4 text-xs sm:text-sm font-bold text-[#052651] transition-colors group-hover:text-accent">
+                    <div class="mt-auto flex items-center justify-between gap-1 border-t border-gray-50 pt-2.5 sm:pt-4 text-xs sm:text-sm font-bold text-[#0a1628] transition-colors group-hover:text-accent">
                         <span class="inline-flex min-w-0 items-center gap-1 sm:gap-2">
                             <svg class="h-4 w-4 sm:h-5 sm:w-5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                             <span class="truncate sm:whitespace-normal">WhatsApp</span>
                         </span>
-                        <svg class="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 transform text-[#052651] transition-all group-hover:translate-x-1 group-hover:text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <svg class="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 transform text-[#0a1628] transition-all group-hover:translate-x-1 group-hover:text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                         </svg>
                     </div>
@@ -2745,6 +2773,303 @@
 </section>
 
 
+<!-- Saurashtra Circuit Section -->
+<section id="saurashtra-circuit" class="saurashtra-section py-20 md:py-28 relative overflow-hidden">
+    <!-- White background matching other sections -->
+    <div class="absolute inset-0 bg-white"></div>
+    <!-- Subtle warm grid texture -->
+    <div class="absolute inset-0 opacity-[0.025]" style="background-image: linear-gradient(#0a1628 1px, transparent 1px), linear-gradient(90deg, #0a1628 1px, transparent 1px); background-size: 48px 48px;"></div>
+    <!-- Soft yellow glow top-right -->
+    <div class="absolute top-0 right-0 w-[500px] h-[500px] rounded-full blur-[120px] pointer-events-none" style="background: rgba(235,200,49,0.12);"></div>
+    <!-- Soft orange glow bottom-left -->
+    <div class="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full blur-[100px] pointer-events-none" style="background: rgba(249,115,22,0.07);"></div>
+
+    <div class="container-max relative z-10">
+        <!-- Section Header -->
+        <div class="mb-14 md:mb-20" data-aos="fade-up">
+            <div class="inline-flex items-center gap-2 mb-5">
+                <div class="h-px w-12" style="background: linear-gradient(90deg, #ebc831, transparent);"></div>
+                <span class="text-[10px] font-black uppercase tracking-[0.35em]" style="color: #f97316;">The Saurashtra Circuit</span>
+            </div>
+            <h2 class="text-4xl sm:text-5xl md:text-7xl font-black leading-[1.0] tracking-tighter mb-6 max-w-3xl" style="color: #0a1628;">
+                Packages built around<br>
+                <span style="color: #ebc831;">real routes.</span>
+            </h2>
+            <p class="text-base md:text-lg font-medium max-w-xl leading-relaxed" style="color: rgba(10,22,40,0.55);">
+                These are the drives we know best — the temple towns, the coast and the sanctuary, mapped out below.
+            </p>
+        </div>
+
+        <!-- Animated Route Map -->
+        <div class="circuit-map-wrap relative mb-16 md:mb-20" data-aos="fade-up" data-aos-delay="100">
+            <svg viewBox="0 0 900 200" class="w-full" aria-label="Saurashtra route map" role="img" preserveAspectRatio="xMidYMid meet">
+                <!-- Dashed animated route path -->
+                <defs>
+                    <filter id="glow-amber">
+                        <feGaussianBlur stdDeviation="3" result="blur"/>
+                        <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                    </filter>
+                </defs>
+                <!-- Main route line -->
+                <path id="route-path"
+                    d="M 70 130 C 150 90, 220 80, 310 100 C 380 115, 450 115, 560 95 C 650 78, 730 75, 830 80"
+                    fill="none"
+                    stroke="#0a1628"
+                    stroke-width="2"
+                    stroke-dasharray="8 6"
+                    opacity="0.3"
+                    class="route-dashed-line"
+                />
+                <!-- Yellow highlight route line -->
+                <path
+                    d="M 70 130 C 150 90, 220 80, 310 100 C 380 115, 450 115, 560 95 C 650 78, 730 75, 830 80"
+                    fill="none"
+                    stroke="#ebc831"
+                    stroke-width="2.5"
+                    stroke-dasharray="8 6"
+                    opacity="0.7"
+                    class="route-dashed-line-yellow"
+                />
+                <!-- Branch line to Kutch -->
+                <path
+                    d="M 560 95 L 540 160"
+                    fill="none"
+                    stroke="#ebc831"
+                    stroke-width="1.5"
+                    stroke-dasharray="5 5"
+                    opacity="0.5"
+                />
+
+                <!-- Start dot — Jamnagar (filled yellow) -->
+                <circle cx="70" cy="130" r="8" fill="#ebc831" class="circuit-node-start"/>
+                <circle cx="70" cy="130" r="16" fill="#ebc831" opacity="0.15" class="circuit-node-pulse"/>
+                <text x="70" y="158" text-anchor="middle" fill="#0a1628" font-size="10" font-weight="800" letter-spacing="0.08em" class="circuit-label">JAMNAGAR</text>
+
+                <!-- Dwarka -->
+                <circle cx="310" cy="100" r="6" fill="#fff" stroke="#0a1628" stroke-width="2" class="circuit-node"/>
+                <text x="310" y="80" text-anchor="middle" fill="#0a1628" font-size="9" font-weight="700" letter-spacing="0.07em" class="circuit-label">DWARKA</text>
+
+                <!-- Somnath -->
+                <circle cx="560" cy="95" r="6" fill="#fff" stroke="#0a1628" stroke-width="2" class="circuit-node"/>
+                <text x="560" y="75" text-anchor="middle" fill="#0a1628" font-size="9" font-weight="700" letter-spacing="0.07em" class="circuit-label">SOMNATH</text>
+
+                <!-- Kutch (branch) -->
+                <circle cx="540" cy="163" r="6" fill="#fff" stroke="#f97316" stroke-width="2" class="circuit-node"/>
+                <text x="540" y="185" text-anchor="middle" fill="#f97316" font-size="9" font-weight="700" letter-spacing="0.07em" class="circuit-label">KUTCH</text>
+
+                <!-- Sasan Gir (arrow end) -->
+                <polygon points="830,80 820,74 820,86" fill="#ebc831" opacity="0.95"/>
+                <text x="830" y="62" text-anchor="middle" fill="#0a1628" font-size="9" font-weight="700" letter-spacing="0.07em" class="circuit-label">SASAN GIR</text>
+            </svg>
+        </div>
+
+        <!-- Destination Cards Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5" data-aos="fade-up" data-aos-delay="150">
+            <!-- Dwarka Card -->
+            <div class="circuit-card group">
+                <div class="circuit-card-inner">
+                    <div class="circuit-card-route">Jamnagar → Dwarka</div>
+                    <h3 class="circuit-card-title">Dwarka</h3>
+                    <ul class="circuit-card-list">
+                        <li><span class="circuit-dot"></span>Dwarkadhish Temple</li>
+                        <li><span class="circuit-dot"></span>Bet Dwarka ferry crossing</li>
+                        <li><span class="circuit-dot"></span>Rukmini Devi Temple</li>
+                    </ul>
+                    <a href="booking.html" class="circuit-card-cta">Book This Route →</a>
+                </div>
+            </div>
+
+            <!-- Somnath Card -->
+            <div class="circuit-card group">
+                <div class="circuit-card-inner">
+                    <div class="circuit-card-route">Jamnagar → Somnath</div>
+                    <h3 class="circuit-card-title">Somnath</h3>
+                    <ul class="circuit-card-list">
+                        <li><span class="circuit-dot"></span>Somnath Jyotirlinga Temple</li>
+                        <li><span class="circuit-dot"></span>Triveni Sangam ghat</li>
+                        <li><span class="circuit-dot"></span>Bhalka Tirth</li>
+                    </ul>
+                    <a href="booking.html" class="circuit-card-cta">Book This Route →</a>
+                </div>
+            </div>
+
+            <!-- Kutch Card -->
+            <div class="circuit-card group">
+                <div class="circuit-card-inner">
+                    <div class="circuit-card-route">Jamnagar → Kutch</div>
+                    <h3 class="circuit-card-title">Kutch</h3>
+                    <ul class="circuit-card-list">
+                        <li><span class="circuit-dot"></span>White Rann of Kutch</li>
+                        <li><span class="circuit-dot"></span>Kalo Dungar viewpoint</li>
+                        <li><span class="circuit-dot"></span>Bhuj &amp; Mandvi beach</li>
+                    </ul>
+                    <a href="booking.html" class="circuit-card-cta">Book This Route →</a>
+                </div>
+            </div>
+
+            <!-- Sasan Gir Card -->
+            <div class="circuit-card group">
+                <div class="circuit-card-inner">
+                    <div class="circuit-card-route">Jamnagar → Gir</div>
+                    <h3 class="circuit-card-title">Sasan Gir</h3>
+                    <ul class="circuit-card-list">
+                        <li><span class="circuit-dot"></span>Gir National Park safari</li>
+                        <li><span class="circuit-dot"></span>Devalia Safari Park</li>
+                        <li><span class="circuit-dot"></span>Kamleshwar Dam</li>
+                    </ul>
+                    <a href="booking.html" class="circuit-card-cta">Book This Route →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+/* ===== Saurashtra Circuit Section Styles ===== */
+.saurashtra-section {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* SVG route animation */
+.route-dashed-line {
+    stroke-dasharray: 8 6;
+    animation: dash-march 3s linear infinite;
+}
+.route-dashed-line-yellow {
+    stroke-dasharray: 8 6;
+    animation: dash-march-rev 4s linear infinite;
+}
+@keyframes dash-march {
+    to { stroke-dashoffset: -56; }
+}
+@keyframes dash-march-rev {
+    to { stroke-dashoffset: -56; }
+}
+
+.circuit-node-start {
+    animation: node-glow-yellow 2.5s ease-in-out infinite alternate;
+}
+@keyframes node-glow-yellow {
+    from { filter: drop-shadow(0 0 5px rgba(235,200,49,0.6)); }
+    to   { filter: drop-shadow(0 0 16px rgba(235,200,49,0.9)) drop-shadow(0 0 4px rgba(249,115,22,0.5)); }
+}
+.circuit-node-pulse {
+    animation: pulse-ring-yellow 2s ease-in-out infinite;
+}
+@keyframes pulse-ring-yellow {
+    0%   { r: 12; opacity: 0.3; }
+    100% { r: 26; opacity: 0; }
+}
+.circuit-node { transition: all 0.3s; }
+
+/* Circuit Cards — white bg with dark navy border, yellow/orange accents */
+.circuit-card {
+    border: 1.5px solid rgba(10, 22, 40, 0.1);
+    border-radius: 1.25rem;
+    background: #ffffff;
+    box-shadow: 0 2px 16px rgba(10,22,40,0.05);
+    transition: all 0.4s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+.circuit-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #ebc831, #f97316);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.circuit-card:hover::before { opacity: 1; }
+.circuit-card:hover {
+    border-color: rgba(235, 200, 49, 0.4);
+    background: #fffdf0;
+    transform: translateY(-5px);
+    box-shadow: 0 20px 50px -10px rgba(10,22,40,0.12), 0 0 0 1px rgba(235,200,49,0.2);
+}
+.circuit-card-inner {
+    padding: 1.6rem 1.8rem;
+    position: relative;
+    z-index: 1;
+}
+.circuit-card-route {
+    font-size: 0.58rem;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #f97316;
+    margin-bottom: 0.65rem;
+}
+.circuit-card-title {
+    font-size: 1.55rem;
+    font-weight: 900;
+    color: #0a1628;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+}
+.circuit-card-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+}
+.circuit-card-list li {
+    font-size: 0.77rem;
+    color: rgba(10,22,40,0.5);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    transition: color 0.3s;
+}
+.circuit-card:hover .circuit-card-list li {
+    color: rgba(10,22,40,0.8);
+}
+.circuit-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #ebc831;
+    flex-shrink: 0;
+    opacity: 0.8;
+}
+.circuit-card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #0a1628;
+    text-decoration: none;
+    opacity: 0;
+    transform: translateY(5px);
+    transition: all 0.35s ease;
+    background: #ebc831;
+    padding: 0.35rem 0.8rem;
+    border-radius: 20px;
+}
+.circuit-card:hover .circuit-card-cta {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive route map */
+.circuit-map-wrap { padding: 0 1rem; }
+.circuit-label { font-family: 'Poppins', sans-serif; }
+@media (max-width: 640px) {
+    .circuit-map-wrap { padding: 0; }
+    .circuit-card-title { font-size: 1.25rem; }
+    .circuit-card-inner { padding: 1.25rem 1.4rem; }
+}
+</style>
+
 <!-- Call to Action -->
 <section class="py-24 relative overflow-hidden bg-primary mx-4 sm:mx-8 lg:mx-auto max-w-7xl rounded-3xl mb-12 shadow-2xl shadow-primary/20">
     <!-- Abstract Background Pattern -->
@@ -2792,11 +3117,11 @@
 
     <!-- Footer -->
     <!-- UNIQUE PREMIUM FOOTER -->
-<footer class="relative mt-20 bg-[#041833] text-white overflow-hidden">
+<footer class="relative mt-20 bg-[#071220] text-white overflow-hidden">
     <!-- Top Curved Divider -->
     <div class="absolute top-0 left-0 w-full overflow-hidden leading-[0] transform rotate-180 bg-white">
         <svg class="relative block w-[calc(100%+1.3px)] h-[80px] md:h-[110px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#041833"></path>
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#071220"></path>
         </svg>
     </div>
 

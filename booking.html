@@ -44,12 +44,12 @@
 
         /* Primary Colors */
         :root {
-            --primary: #052651;
+            --primary: #0a1628;
             --accent: #ebc831;
         }
 
-        .bg-primary { background-color: #052651; }
-        .text-primary { color: #052651; }
+        .bg-primary { background-color: #0a1628; }
+        .text-primary { color: #0a1628; }
         .text-accent { color: #ebc831; }
         .bg-accent { background-color: #ebc831; }
         .border-accent { border-color: #ebc831; }
@@ -85,7 +85,7 @@
             color: #ffffff;
             border-color: var(--primary);
             transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 10px 20px rgba(5, 38, 81, 0.2);
+            box-shadow: 0 10px 20px rgba(10, 22, 40, 0.2);
         }
 
         .btn-primary {
@@ -128,7 +128,7 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#052651',
+                        primary: '#0a1628',
                         accent: '#ebc831',
                     },
                     fontFamily: {
@@ -186,7 +186,7 @@
     .oneway-routes-block {
         margin-top: 4rem;
         padding-top: 3rem;
-        border-top: 1px solid rgba(5, 38, 81, 0.08);
+        border-top: 1px solid rgba(10, 22, 40, 0.08);
     }
 
     /* 2×2 tour grid on phones / tablets — compact cards only on booking page */
@@ -1102,11 +1102,13 @@
                                 <span class="p-1.5 rounded-lg bg-slate-100 group-focus-within/field:bg-accent/10 transition-colors"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-500 group-focus-within/field:text-accent"></i></span> 
                                 Pickup From
                             </label>
-                            <div class="relative">
-                                <select name="pickup_location" id="pickup_location" required class="premium-select w-full h-16 bg-white border border-slate-200/80 rounded-2xl px-6 text-slate-900 font-bold text-sm outline-none appearance-none transition-all duration-500 focus:border-accent focus:shadow-lg focus:shadow-accent/5 hover:border-slate-300">
-                                    <!-- Dynamic -->
-                                </select>
-                                <i data-lucide="chevron-down" class="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none w-4 h-4"></i>
+                            <div class="relative autocomplete-wrap" id="pickup-wrap">
+                                <input type="text" name="pickup_location" id="pickup_location" required
+                                    autocomplete="off"
+                                    placeholder="Type city or area..."
+                                    class="w-full h-16 bg-white border border-slate-200/80 rounded-2xl px-6 pr-12 text-slate-900 font-bold text-sm outline-none transition-all duration-500 focus:border-accent focus:shadow-lg focus:shadow-accent/5 hover:border-slate-300 placeholder:text-slate-300 placeholder:font-normal">
+                                <i data-lucide="map-pin" class="absolute right-5 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none w-4 h-4"></i>
+                                <div class="city-suggest-panel" id="pickup-suggestions"></div>
                             </div>
                         </div>
 
@@ -1116,11 +1118,13 @@
                                 <span class="p-1.5 rounded-lg bg-slate-100 group-focus-within/field:bg-accent/10 transition-colors"><i data-lucide="navigation" class="w-3.5 h-3.5 text-slate-500 group-focus-within/field:text-accent"></i></span> 
                                 Destination
                             </label>
-                            <div class="relative">
-                                <select name="dropoff_location" id="dropoff_location" required class="premium-select w-full h-16 bg-white border border-slate-200/80 rounded-2xl px-6 text-slate-900 font-bold text-sm outline-none appearance-none transition-all duration-500 focus:border-accent focus:shadow-lg focus:shadow-accent/5 hover:border-slate-300">
-                                    <!-- Dynamic -->
-                                </select>
-                                <i data-lucide="chevron-down" class="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none w-4 h-4"></i>
+                            <div class="relative autocomplete-wrap" id="dropoff-wrap">
+                                <input type="text" name="dropoff_location" id="dropoff_location" required
+                                    autocomplete="off"
+                                    placeholder="Type destination..."
+                                    class="w-full h-16 bg-white border border-slate-200/80 rounded-2xl px-6 pr-12 text-slate-900 font-bold text-sm outline-none transition-all duration-500 focus:border-accent focus:shadow-lg focus:shadow-accent/5 hover:border-slate-300 placeholder:text-slate-300 placeholder:font-normal">
+                                <i data-lucide="navigation" class="absolute right-5 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none w-4 h-4"></i>
+                                <div class="city-suggest-panel" id="dropoff-suggestions"></div>
                             </div>
                         </div>
 
@@ -1363,6 +1367,77 @@
     html {
         scroll-behavior: smooth;
     }
+
+    /* ===== Custom Autocomplete Dropdown ===== */
+    .autocomplete-wrap { position: relative; }
+
+    .city-suggest-panel {
+        display: none;
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        right: 0;
+        z-index: 9999;
+        background: #0a1628;
+        border: 1.5px solid rgba(235,200,49,0.25);
+        border-radius: 1rem;
+        box-shadow: 0 20px 50px -10px rgba(0,0,0,0.45), 0 0 0 1px rgba(235,200,49,0.08);
+        overflow: hidden;
+        max-height: 240px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(235,200,49,0.3) transparent;
+    }
+    .city-suggest-panel::-webkit-scrollbar { width: 4px; }
+    .city-suggest-panel::-webkit-scrollbar-track { background: transparent; }
+    .city-suggest-panel::-webkit-scrollbar-thumb { background: rgba(235,200,49,0.3); border-radius: 4px; }
+
+    .city-suggest-panel.open { display: block; animation: suggestIn 0.18s ease; }
+    @keyframes suggestIn {
+        from { opacity: 0; transform: translateY(-6px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .suggest-item {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        padding: 0.7rem 1.1rem;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: rgba(255,255,255,0.75);
+        cursor: pointer;
+        transition: background 0.15s, color 0.15s;
+        border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .suggest-item:last-child { border-bottom: none; }
+    .suggest-item:hover, .suggest-item.active {
+        background: rgba(235,200,49,0.12);
+        color: #ebc831;
+    }
+    .suggest-item .suggest-icon {
+        width: 1.4rem;
+        height: 1.4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(235,200,49,0.1);
+        border-radius: 6px;
+        flex-shrink: 0;
+    }
+    .suggest-item .suggest-icon svg {
+        width: 12px;
+        height: 12px;
+        color: #ebc831;
+        stroke: #ebc831;
+    }
+    .suggest-empty {
+        padding: 1rem 1.1rem;
+        font-size: 0.78rem;
+        color: rgba(255,255,255,0.35);
+        font-weight: 500;
+        text-align: center;
+    }
 </style>
 
 <script>
@@ -1465,11 +1540,9 @@
             return state.tripType === 'round' ? 'Round trip' : 'One way';
         }
 
-        function selectOptionLabel(selectEl) {
-            if (!selectEl || selectEl.selectedIndex < 0) return '—';
-            const opt = selectEl.options[selectEl.selectedIndex];
-            if (!opt || !opt.value) return '—';
-            return opt.text.trim();
+        function selectOptionLabel(inputEl) {
+            if (!inputEl) return '—';
+            return (inputEl.value || '').trim() || '—';
         }
 
         function buildPremiumBookingWaUrl(formEl) {
@@ -1477,8 +1550,8 @@
             const name = (fd.get('customer_name') || '').toString().trim();
             const mob = (fd.get('mobile_number') || '').toString().trim();
             const car = selectOptionLabel(formEl.querySelector('[name="car_type"]'));
-            const pickup = selectOptionLabel(formEl.querySelector('[name="pickup_location"]'));
-            const drop = selectOptionLabel(formEl.querySelector('[name="dropoff_location"]'));
+            const pickup = (fd.get('pickup_location') || '').toString().trim() || '—';
+            const drop = (fd.get('dropoff_location') || '').toString().trim() || '—';
             const pDate = (fd.get('pickup_date') || '').toString();
             const rDate = (fd.get('return_date') || '').toString();
             const service = state.serviceType === 'airport' ? 'Airport transfer' : 'Outstation';
@@ -1586,25 +1659,52 @@
         }
 
         function populateDropdowns() {
-            let pickupOptions = '<option value="">Current Location</option>';
-            let dropOptions = '<option value="">Destination</option>';
+            const pickupDatalist = document.getElementById('pickup-city-list');
+            const dropoffDatalist = document.getElementById('dropoff-city-list');
+            if (!pickupDatalist || !dropoffDatalist) return;
+
+            let citySuggestions = [];
 
             if (state.serviceType === 'airport') {
                 if (state.tripType === 'pickup') {
-                    airports.forEach(a => pickupOptions += `<option value="${a.id}">${a.name}</option>`);
+                    // Airport pickup: suggest airports for pickup
+                    airports.forEach(a => { citySuggestions.push({ label: a.name, datalist: 'pickup' }); });
+                    gujaratCities.forEach(c => { citySuggestions.push({ label: c, datalist: 'dropoff' }); });
                 } else {
-                    gujaratCities.forEach(c => pickupOptions += `<option value="${c.toLowerCase()}">${c}</option>`);
-                    airports.forEach(a => dropOptions += `<option value="${a.id}">${a.name}</option>`);
+                    // Airport drop: cities for pickup, airports for destination
+                    gujaratCities.forEach(c => { citySuggestions.push({ label: c, datalist: 'pickup' }); });
+                    airports.forEach(a => { citySuggestions.push({ label: a.name, datalist: 'dropoff' }); });
                 }
             } else {
                 gujaratCities.forEach(c => {
-                    pickupOptions += `<option value="${c.toLowerCase()}">${c}</option>`;
-                    dropOptions += `<option value="${c.toLowerCase()}">${c}</option>`;
+                    citySuggestions.push({ label: c, datalist: 'both' });
                 });
             }
 
-            pickupLocation.innerHTML = pickupOptions;
-            dropoffLocation.innerHTML = dropOptions;
+            pickupDatalist.innerHTML = '';
+            dropoffDatalist.innerHTML = '';
+            citySuggestions.forEach(item => {
+                if (item.datalist === 'pickup' || item.datalist === 'both') {
+                    const opt = document.createElement('option'); opt.value = item.label;
+                    pickupDatalist.appendChild(opt);
+                }
+                if (item.datalist === 'dropoff' || item.datalist === 'both') {
+                    const opt = document.createElement('option'); opt.value = item.label;
+                    dropoffDatalist.appendChild(opt);
+                }
+            });
+
+            // Update placeholders based on service type
+            if (state.serviceType === 'airport' && state.tripType === 'pickup') {
+                pickupLocation.placeholder = 'Type airport name...';
+                dropoffLocation.placeholder = 'Type destination city...';
+            } else if (state.serviceType === 'airport' && state.tripType === 'drop') {
+                pickupLocation.placeholder = 'Type your city...';
+                dropoffLocation.placeholder = 'Type airport name...';
+            } else {
+                pickupLocation.placeholder = 'Type pickup city or area...';
+                dropoffLocation.placeholder = 'Type destination city...';
+            }
         }
 
         function renderTripTypes() {
@@ -1790,11 +1890,11 @@
 
     <!-- Footer -->
     <!-- UNIQUE PREMIUM FOOTER -->
-<footer class="relative mt-20 bg-[#041833] text-white overflow-hidden">
+<footer class="relative mt-20 bg-[#071220] text-white overflow-hidden">
     <!-- Top Curved Divider -->
     <div class="absolute top-0 left-0 w-full overflow-hidden leading-[0] transform rotate-180 bg-white">
         <svg class="relative block w-[calc(100%+1.3px)] h-[80px] md:h-[110px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#041833"></path>
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#071220"></path>
         </svg>
     </div>
 
