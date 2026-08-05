@@ -4,6 +4,7 @@
 
 
 <head>
+    <style>html,body{background-color:#ffffff!important;}</style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -29,9 +30,33 @@
         
     <!-- Tailwind CSS CDN with Custom Config -->
     <script src="https://cdn.tailwindcss.com/"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                DEFAULT: '#091527',
+                dark: '#040b15',
+                light: '#13233c',
+              },
+              accent: {
+                DEFAULT: '#facc15',
+                hover: '#eab308',
+                glow: 'rgba(250, 204, 21, 0.4)',
+              }
+            },
+            fontFamily: {
+              sans: ['Plus Jakarta Sans', 'Poppins', 'sans-serif'],
+              heading: ['Space Grotesk', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
     <style>
         html {
@@ -1492,7 +1517,7 @@
 </section>
 
 <!-- CTA: tour quote + call -->
-<section class="py-20 md:py-24 relative overflow-hidden px-4 sm:px-0">
+<section class="py-20 md:py-24 relative overflow-hidden px-4 sm:px-0 bg-white">
     <div class="container-max">
         <div class="relative bg-primary rounded-3xl md:rounded-[3rem] overflow-hidden shadow-2xl shadow-primary/30 px-6 py-14 sm:px-10 sm:py-16 md:px-16 md:py-20 text-center" data-aos="zoom-in">
             <div class="absolute inset-0 opacity-[0.12] pointer-events-none" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 40px 40px;"></div>
@@ -1532,7 +1557,7 @@
 
     <!-- Footer -->
     <!-- UNIQUE PREMIUM FOOTER -->
-<footer class="relative mt-20 bg-[#071220] text-white overflow-hidden">
+<footer class="relative bg-[#071220] text-white overflow-hidden">
     <!-- Top Curved Divider -->
     <div class="absolute top-0 left-0 w-full overflow-hidden leading-[0] transform rotate-180 bg-white">
         <svg class="relative block w-[calc(100%+1.3px)] h-[80px] md:h-[110px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">

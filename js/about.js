@@ -331,7 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Add click tracking to important links
-    const trackableLinks = document.querySelectorAll('a[href*="booking-taxi-jamnagar"], a[href*="contact-taxi-jamnagar"]');
+    const trackableLinks = document.querySelectorAll('a[href*="booking-taxi-ahmedabad"], a[href*="contact-taxi-ahmedabad"]');
     trackableLinks.forEach(link => {
         link.addEventListener('click', () => {
             console.log(`User clicked: ${link.textContent.trim()}`);

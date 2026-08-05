@@ -5,7 +5,7 @@
     const loader = document.getElementById('page-loader');
     if (!loader) return;
 
-    const MIN_VISIBLE_MS = 520;
+    const MIN_VISIBLE_MS = 100;
     const startedAt = performance.now();
 
     function hideLoader() {

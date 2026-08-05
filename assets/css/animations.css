@@ -503,3 +503,148 @@
         transition: none !important;
     }
 }
+
+/* ==========================================
+   ULTRA-MODERN UI, THEME & TRANSITIONS
+   ========================================== */
+
+/* Modern View Transitions API for seamless page transitions */
+@view-transition {
+    navigation: auto;
+}
+
+::view-transition-old(root) {
+    animation: 300ms cubic-bezier(0.4, 0, 0.2, 1) both fadeOut;
+}
+
+::view-transition-new(root) {
+    animation: 400ms cubic-bezier(0.4, 0, 0.2, 1) both fadeIn;
+}
+
+/* Global background to prevent any flash */
+html {
+    background-color: #ffffff !important;
+}
+
+body {
+    background-color: #ffffff !important;
+    transition: opacity 0.25s ease;
+}
+
+body.page-exiting {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+/* Custom Glassmorphism & Luxury Glow Utilities */
+.glass-panel {
+    background: rgba(10, 22, 40, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.glass-card-light {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(235, 200, 49, 0.2);
+}
+
+.glass-card-dark {
+    background: rgba(9, 21, 39, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Glowing Accents & Gradient Text */
+.text-gradient-gold {
+    background: linear-gradient(135deg, #fff 0%, #facc15 50%, #eab308 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-blue {
+    background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #1d4ed8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.glow-amber {
+    box-shadow: 0 0 30px rgba(250, 204, 21, 0.25);
+}
+
+.glow-amber-lg {
+    box-shadow: 0 0 50px rgba(250, 204, 21, 0.4);
+}
+
+/* Shimmer Animation for CTA Buttons */
+@keyframes shimmerSweep {
+    0% {
+        transform: translateX(-150%) rotate(45deg);
+    }
+    100% {
+        transform: translateX(250%) rotate(45deg);
+    }
+}
+
+.shimmer-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.shimmer-btn::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        60deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.4) 50%,
+        transparent 70%
+    );
+    transform: rotate(30deg);
+    animation: shimmerSweep 4s infinite;
+    pointer-events: none;
+}
+
+/* Floating animation for badge / car cards */
+@keyframes floatingCard {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-8px) rotate(0.5deg);
+    }
+}
+
+.animate-float {
+    animation: floatingCard 5s ease-in-out infinite;
+}
+
+/* Card Hover 3D Lift */
+.luxury-card {
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.luxury-card:hover {
+    transform: translateY(-10px) scale(1.015);
+    box-shadow: 0 30px 60px rgba(5, 38, 81, 0.18), 0 0 30px rgba(250, 204, 21, 0.15);
+}
+
+/* Input Focus Glows */
+.luxury-input {
+    transition: all 0.3s ease;
+    border: 1.5 solid rgba(10, 22, 40, 0.15);
+}
+
+.luxury-input:focus {
+    border-color: #facc15 !important;
+    box-shadow: 0 0 0 4px rgba(250, 204, 21, 0.25) !important;
+    outline: none !important;
+}
+

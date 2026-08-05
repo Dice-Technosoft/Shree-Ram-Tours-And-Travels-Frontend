@@ -5,10 +5,11 @@
 /* Reserve space for sticky header */
 html {
     scroll-padding-top: 110px;
+    background-color: #ffffff !important;
 }
 
 body {
-    padding-top: 0;
+    padding-top: var(--site-header-offset, 110px);
     margin: 0;
     background-color: #ffffff;
 }
@@ -44,10 +45,11 @@ body {
 }
 
 .site-header {
-    position: sticky;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
+    width: 100%;
     z-index: var(--header-z);
     background: var(--header-accent);
     box-shadow: 0 2px 16px rgba(10, 22, 40, 0.15);

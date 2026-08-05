@@ -258,6 +258,24 @@ class AnimationManager {
  */
 document.addEventListener('DOMContentLoaded', () => {
     new AnimationManager();
+
+    // Smooth Page Exit Transition Handler
+    const internalLinks = document.querySelectorAll('a[href$=".html"], a[href^="./"], a[href^="/"]');
+    internalLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (!href || href.startsWith('#') || href.startsWith('http') || link.getAttribute('target') === '_blank') return;
+        
+        link.addEventListener('click', (e) => {
+            if (e.metaKey || e.ctrlKey) return;
+            e.preventDefault();
+            
+            document.body.classList.add('page-exiting');
+            
+            setTimeout(() => {
+                window.location.href = href;
+            }, 180);
+        });
+    });
 });
 
 /**
@@ -271,3 +289,4 @@ window.AnimationUtils = {
     observeFadeIn: AnimationManager.observeFadeIn,
     staggerAnimation: AnimationManager.staggerAnimation,
 };
+

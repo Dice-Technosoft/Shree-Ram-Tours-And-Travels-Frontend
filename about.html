@@ -4,6 +4,7 @@
 
 
 <head>
+    <style>html,body{background-color:#ffffff!important;}</style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -29,9 +30,33 @@
         
     <!-- Tailwind CSS CDN with Custom Config -->
     <script src="https://cdn.tailwindcss.com/"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                DEFAULT: '#091527',
+                dark: '#040b15',
+                light: '#13233c',
+              },
+              accent: {
+                DEFAULT: '#facc15',
+                hover: '#eab308',
+                glow: 'rgba(250, 204, 21, 0.4)',
+              }
+            },
+            fontFamily: {
+              sans: ['Plus Jakarta Sans', 'Poppins', 'sans-serif'],
+              heading: ['Space Grotesk', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
     <style>
         html {
@@ -424,43 +449,48 @@
     </div>
 </section>
 
-<!-- Call to Action (matches home page) -->
-<section class="py-24 relative overflow-hidden bg-primary mx-4 sm:mx-8 lg:mx-auto max-w-7xl rounded-3xl mb-12 shadow-2xl shadow-primary/20">
-    <div class="absolute inset-0 opacity-10">
-        <svg class="absolute w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <pattern id="about-cta-grid-pattern" width="40" height="40" patternUnits="userSpaceOnUse">
-                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" stroke-width="1.5" />
-                </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#about-cta-grid-pattern)" />
-        </svg>
-    </div>
-    <div class="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-accent rounded-full blur-[100px] opacity-40"></div>
-    <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 bg-blue-500 rounded-full blur-[100px] opacity-30"></div>
-
-    <div class="container-max relative z-10 px-6 lg:px-12 flex flex-col lg:flex-row items-center justify-between gap-12">
-        <div class="text-left max-w-2xl" data-aos="fade-right">
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm shadow-sm mb-6">
-                <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-                <span class="text-white text-sm font-bold tracking-wider uppercase">Shree Ram Tours and Travels</span>
+<!-- Call to Action -->
+<section class="py-16 sm:py-24 bg-white relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="relative bg-primary rounded-3xl sm:rounded-[2.5rem] p-8 sm:p-12 lg:p-16 overflow-hidden shadow-2xl shadow-primary/30 border border-white/10">
+            <!-- Abstract Grid Pattern -->
+            <div class="absolute inset-0 opacity-15 pointer-events-none">
+                <svg class="absolute w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <pattern id="about-grid-cta-pattern" width="40" height="40" patternUnits="userSpaceOnUse">
+                            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" stroke-width="1.5" class="text-white/40" />
+                        </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#about-grid-cta-pattern)" />
+                </svg>
             </div>
-            <h2 class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black text-white leading-[1.1] tracking-tighter mb-6 sm:mb-8">
-                <span class="block sm:inline">Need a cab in</span> <span class="block sm:inline text-accent relative inline-block">Ahmedabad<svg class="absolute -bottom-2 w-full left-0 stroke-accent opacity-60" viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M0 10 Q 50 20 100 10" fill="none" stroke-width="4"/></svg></span><span class="block sm:inline lg:inline">?</span>
-            </h2>
-            <p class="text-lg text-blue-100 font-medium max-w-xl leading-relaxed">Airport and railway transfers, city rides, and Gujarat outstation tours — get a clear fare estimate and vehicle options. Call us anytime or use the contact page for maps, WhatsApp, and details.</p>
-        </div>
+            
+            <!-- Glowing Orb -->
+            <div class="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-accent rounded-full blur-[120px] opacity-30 pointer-events-none"></div>
 
-        <div class="flex flex-col sm:flex-row flex-wrap gap-4 w-full lg:w-auto lg:max-w-xl lg:justify-end" data-aos="fade-left" data-aos-delay="100">
-            <a href="tel:+919909140334" class="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-accent text-primary font-bold text-lg rounded-xl overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(250,204,21,0.4)] sm:flex-1 lg:flex-none lg:min-w-[200px]">
-                <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-                <span class="relative z-10">Call +91 99091 40334</span>
-                <div class="absolute inset-0 h-full w-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
-            </a>
-            <a href="contact.html" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 text-white font-bold text-lg rounded-xl border border-white/20 hover:bg-white/20 backdrop-blur-sm transition-all hover:scale-105 sm:flex-1 lg:flex-none lg:min-w-[200px]">
-                <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                Contact us
-            </a>
+            <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
+                <div class="text-left max-w-2xl" data-aos="fade-right">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm shadow-sm mb-6">
+                        <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+                        <span class="text-white text-xs sm:text-sm font-bold tracking-wider uppercase">Shree Ram Tours and Travels</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.1] tracking-tighter mb-6">
+                        <span class="block sm:inline">Need a cab in</span> <span class="block sm:inline text-accent relative inline-block">Ahmedabad<svg class="absolute -bottom-2 w-full left-0 stroke-accent opacity-60" viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M0 10 Q 50 20 100 10" fill="none" stroke-width="4"/></svg></span><span class="block sm:inline lg:inline">?</span>
+                    </h2>
+                    <p class="text-base sm:text-lg text-blue-100/90 font-medium max-w-xl leading-relaxed">Airport and railway transfers, city rides, and Gujarat outstation tours — get a clear fare estimate and vehicle options. Call us anytime or use the contact page for maps, WhatsApp, and details.</p>
+                </div>
+                
+                <div class="flex flex-col gap-4 w-full lg:w-auto shrink-0 lg:min-w-[240px]" data-aos="fade-left" data-aos-delay="100">
+                    <a href="tel:+919909140334" class="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-accent text-primary font-black text-base sm:text-lg rounded-2xl overflow-hidden shadow-lg shadow-accent/20 transition-all hover:bg-yellow-400 hover:scale-105">
+                        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                        <span class="relative z-10 whitespace-nowrap">Call +91 99091 40334</span>
+                    </a>
+                    <a href="contact.html" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 text-white font-bold text-base sm:text-lg rounded-2xl border border-white/20 hover:bg-white/20 backdrop-blur-sm transition-all hover:scale-105">
+                        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        <span class="whitespace-nowrap">Contact us</span>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -468,7 +498,7 @@
 
     <!-- Footer -->
     <!-- UNIQUE PREMIUM FOOTER -->
-<footer class="relative mt-20 bg-[#071220] text-white overflow-hidden">
+<footer class="relative bg-[#071220] text-white overflow-hidden">
     <!-- Top Curved Divider -->
     <div class="absolute top-0 left-0 w-full overflow-hidden leading-[0] transform rotate-180 bg-white">
         <svg class="relative block w-[calc(100%+1.3px)] h-[80px] md:h-[110px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">

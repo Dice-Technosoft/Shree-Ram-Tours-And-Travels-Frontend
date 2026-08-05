@@ -74,6 +74,7 @@ class HeaderManager {
         document.documentElement.style.setProperty('--header-height', `${full}px`);
         document.documentElement.style.setProperty('--header-strip-height', `${stripH}px`);
         document.documentElement.style.setProperty('--header-nav-height', `${barH}px`);
+        document.body.style.paddingTop = `${full}px`;
     }
 
     setupMobileMenu() {
