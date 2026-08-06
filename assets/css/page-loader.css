@@ -86,53 +86,7 @@ body.page-loader-active {
 
 /* Global scroll-to-top — below page loader (100000), above site header (~10050) */
 .scroll-to-top-btn {
-    position: fixed;
-    z-index: 10060;
-    right: max(1rem, env(safe-area-inset-right, 0px));
-    bottom: max(1.5rem, env(safe-area-inset-bottom, 0px));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 3.5rem;
-    height: 3.5rem;
-    padding: 0;
-    border: none;
-    border-radius: 9999px;
-    cursor: pointer;
-    color: #0a1628;
-    background: #ebc831;
-    box-shadow: 0 10px 28px rgba(10, 22, 40, 0.22);
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transform: translateY(8px);
-    transition:
-        opacity 0.28s ease,
-        visibility 0.28s ease,
-        transform 0.28s ease,
-        background 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-.scroll-to-top-btn__icon {
-    display: block;
-}
-
-.scroll-to-top-btn:hover {
-    background: #f0d24a;
-    box-shadow: 0 12px 32px rgba(10, 22, 40, 0.28);
-}
-
-.scroll-to-top-btn:focus-visible {
-    outline: 2px solid #0a1628;
-    outline-offset: 3px;
-}
-
-.scroll-to-top-btn--visible {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    transform: translateY(0);
+    outline: none;
 }
 
 /* Never show above / during full-page loader */
