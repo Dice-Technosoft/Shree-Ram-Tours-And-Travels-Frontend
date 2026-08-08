@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Host
+Host: https://shreeramcabs.in/
+
+# Sitemap Location
+Sitemap: https://shreeramcabs.in/sitemap.xml
